@@ -570,14 +570,14 @@ int fallInArea(int xl, int xr, int y_min, char** map, int* height, int* lowest_r
 
     int falls;
     for (int x=xl; x<=xr; x++) {
-	lowest_replace[x-xl] = height[x];
-	falls = 0;
+        lowest_replace[x-xl] = height[x];
+        falls = 0;
 
         // Steine von y_min bis zum obersten Stein der Spalte werden iteriert. Ist ein Block mit
         // -1 markiert, so steigt die Rutschhöhe (falls) aller nachfolgenden Blöcke um 1 an.
         // Hat zum Beispiel der map[x][y]=14 und falls=3, wird an map[x][y-3] die Farbe 14
         // eingetragen.
-	for (int y=y_min; y<height[x]; y++) {
+        for (int y=y_min; y<height[x]; y++) {
             map[x][y-falls] = map[x][y];
             if (map[x][y] == -1) {
                 // lowest_replace[x-xl] bezeichnet die Höhe der niedrigsten Lücke.
@@ -585,9 +585,11 @@ int fallInArea(int xl, int xr, int y_min, char** map, int* height, int* lowest_r
                     lowest_replace[x-xl] = y;
                 ++ falls;
             }
-	}
+        }
+        
         // Die Höhe einer Spalte muss entsprechend der letzten Fallhöhe herabgesetzt werden.
-	height[x] -= falls;
+        height[x] -= falls;
+
         // So wird geprüft, ob wirklich eine Lücke durch einen farbigen Block ersetzt wurde (und
         // sich nicht etwa nur der höchste Block der Spalte map[x] aufgelöst hat).
         if (lowest_replace[x-xl] < height[x])
